@@ -1,4 +1,5 @@
 import os
+import argparse
 from PIL import Image
 import imagehash
 
@@ -21,9 +22,15 @@ def find_duplicates(image_folder):
     return duplicates
 
 
-# Example usage
-duplicates = find_duplicates('./samantha prabhu')
-for dup in duplicates:
-    os.remove(dup)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Find and remove duplicate images in a folder.")
+    parser.add_argument("-p", "--path", type=str, help="Path to the folder containing images.")
 
-print("Duplicate images removed successfully.")
+    args = parser.parse_args()
+    image_folder = args.path
+
+    duplicates = find_duplicates(image_folder)
+    for dup in duplicates:
+        os.remove(dup)
+
+    print("Duplicate images removed successfully.")
